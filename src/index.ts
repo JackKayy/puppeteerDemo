@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
+const absolutePath = path.resolve("./Downloads/UII.png");
+const fileUrl = `file://${absolutePath}`;
 
 // run npx tsc to compile then node dist/index.js to produce pdf, must either delete pdf or change pdfPath to another name to see result
 
@@ -76,12 +78,11 @@ export async function generatePdf(data: Product[]) {
     <body>
 
     <div class="product-container">
-    <img class="product-image" src="./assets/UI.png" alt="{{shortTitle}}" />
+    <img class="product-image" src="{{fileUrl}}" alt="{{shortTitle}}" />
         <div class="short-title">{{shortTitle}}</div>
         <div class="product-details">
         <div>SKU : {{SKU}}</div>
         <div>{{name}}</div>
-        <img class="product-image" src="./assets/TSImg.png" alt="{{shortTitle}}" />
     </div>
     </div>
     </body>
@@ -91,6 +92,7 @@ export async function generatePdf(data: Product[]) {
   
     // Use context object to access values for now
     const context = {
+        fileUrl: fileUrl,
       shortTitle: data[0].shortTitle,
       SKU: data[0].SKU,
       name: data[0].name,
@@ -104,11 +106,11 @@ export async function generatePdf(data: Product[]) {
     /* 
     Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms. 
      */
-    await page.setContent(html, { waitUntil: 'domcontentloaded' });
-    const pdfPath = 'pdf/PhotoWorkkprobnot.pdf';
+    await page.setContent(html, { waitUntil: 'networkidle2' });
+    const pdfPath = 'pdf/PhotoWorkkprobs.pdf';
     // emulateMediaTypes changes the CSS media type of the page.
     await page.emulateMediaType('screen');
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(1000);
   
     await page.pdf({
       path: pdfPath,

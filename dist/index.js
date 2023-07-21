@@ -14,6 +14,8 @@ const puppeteer = require('puppeteer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
+const absolutePath = path.resolve("./Downloads/UII.png");
+const fileUrl = `file://${absolutePath}`;
 const productData = [
     {
         shortTitle: 'Dream Router',
@@ -77,12 +79,11 @@ function generatePdf(data) {
     <body>
 
     <div class="product-container">
-    <img class="product-image" src="./assets/UI.png" alt="{{shortTitle}}" />
+    <img class="product-image" src="{{fileUrl}}" alt="{{shortTitle}}" />
         <div class="short-title">{{shortTitle}}</div>
         <div class="product-details">
         <div>SKU : {{SKU}}</div>
         <div>{{name}}</div>
-        <img class="product-image" src="./assets/TSImg.png" alt="{{shortTitle}}" />
     </div>
     </div>
     </body>
@@ -90,6 +91,7 @@ function generatePdf(data) {
         const compiledTemplate = Handlebars.compile(template);
         // Use context object to access values for now
         const context = {
+            fileUrl: fileUrl,
             shortTitle: data[0].shortTitle,
             SKU: data[0].SKU,
             name: data[0].name,
@@ -101,9 +103,10 @@ function generatePdf(data) {
         /*
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
-        yield page.setContent(html, { waitUntil: 'domcontentloaded' });
-        const pdfPath = 'pdf/PhotoWorkkprobnott.pdf';
+        yield page.setContent(html, { waitUntil: 'networkidle2' });
+        const pdfPath = 'pdf/PhotoWorkkprobs.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
+        yield page.emulateMediaType('screen');
         yield page.waitForTimeout(5000);
         yield page.pdf({
             path: pdfPath,
