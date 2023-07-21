@@ -104,10 +104,11 @@ export async function generatePdf(data: Product[]) {
     /* 
     Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms. 
      */
-    await page.setContent(html, { waitUntil: 'networkidle0' });
-    const pdfPath = 'pdf/Updated.pdf';
+    await page.setContent(html, { waitUntil: 'domcontentloaded' });
+    const pdfPath = 'pdf/PhotoWorkkprobnot.pdf';
     // emulateMediaTypes changes the CSS media type of the page.
     await page.emulateMediaType('screen');
+    await page.waitForTimeout(5000);
   
     await page.pdf({
       path: pdfPath,

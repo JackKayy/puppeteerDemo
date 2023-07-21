@@ -23,7 +23,7 @@ const productData = [
 ];
 function generatePdf(data) {
     return __awaiter(this, void 0, void 0, function* () {
-        // The HTML template as a template literal
+        // Only way it currently works is with the handlebar inside this file
         const template = `<!DOCTYPE html>
     <html>
     <head>
@@ -101,10 +101,10 @@ function generatePdf(data) {
         /*
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
-        yield page.setContent(html, { waitUntil: 'networkidle0' });
-        const pdfPath = 'pdf/Updated.pdf';
+        yield page.setContent(html, { waitUntil: 'domcontentloaded' });
+        const pdfPath = 'pdf/PhotoWorkkprobnott.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
-        yield page.emulateMediaType('screen');
+        yield page.waitForTimeout(5000);
         yield page.pdf({
             path: pdfPath,
             format: 'A4',
