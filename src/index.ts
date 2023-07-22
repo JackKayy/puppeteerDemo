@@ -2,8 +2,8 @@ const puppeteer = require('puppeteer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
-const absolutePath = path.resolve("./Downloads/UII.png");
-const fileUrl = `file://${absolutePath}`;
+const relativePath = path.join('src', 'assets', 'UI.png');
+const fileUrl = 'file:///Users/jack.kay/UII.png';
 
 // run npx tsc to compile then node dist/index.js to produce pdf, must either delete pdf or change pdfPath to another name to see result
 
@@ -24,13 +24,13 @@ const productData: Product[] = [
 ]
 
 export async function generatePdf(data: Product[]) {
+
     // Only way it currently works is with the handlebar inside this file
     const template = `<!DOCTYPE html>
     <html>
     <head>
-    <style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-
+    
     <style>
       @font-face {
         font-family: 'Lato';
@@ -107,7 +107,7 @@ export async function generatePdf(data: Product[]) {
     Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms. 
      */
     await page.setContent(html, { waitUntil: 'networkidle2' });
-    const pdfPath = 'pdf/PhotoWorkkprobs.pdf';
+    const pdfPath = 'pdf/pcitrsjgdcue.pdf';
     // emulateMediaTypes changes the CSS media type of the page.
     await page.emulateMediaType('screen');
     await page.waitForTimeout(1000);

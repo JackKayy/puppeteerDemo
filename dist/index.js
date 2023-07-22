@@ -14,8 +14,8 @@ const puppeteer = require('puppeteer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
-const absolutePath = path.resolve("./Downloads/UII.png");
-const fileUrl = `file://${absolutePath}`;
+const relativePath = path.join('src', 'assets', 'UI.png');
+const fileUrl = 'file:///Users/jack.kay/UII.png';
 const productData = [
     {
         shortTitle: 'Dream Router',
@@ -29,9 +29,8 @@ function generatePdf(data) {
         const template = `<!DOCTYPE html>
     <html>
     <head>
-    <style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
-
+    
     <style>
       @font-face {
         font-family: 'Lato';
@@ -104,10 +103,10 @@ function generatePdf(data) {
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/PhotoWorkkprobs.pdf';
+        const pdfPath = 'pdf/pcitrsjgdcue.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
         yield page.emulateMediaType('screen');
-        yield page.waitForTimeout(5000);
+        yield page.waitForTimeout(1000);
         yield page.pdf({
             path: pdfPath,
             format: 'A4',
