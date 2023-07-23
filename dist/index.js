@@ -15,7 +15,7 @@ const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
 const relativePath = path.join('src', 'assets', 'UI.png');
-const fileUrl = 'file:///Users/jack.kay/UII.png';
+const relativePath2 = path.join('src', 'assets', 'TSImg.png');
 const productData = [
     {
         shortTitle: 'Dream Router',
@@ -25,6 +25,18 @@ const productData = [
 ];
 function generatePdf(data) {
     return __awaiter(this, void 0, void 0, function* () {
+        const imageData = fs.readFileSync(relativePath);
+        const dataURI = `data:image/png;base64,${imageData.toString('base64')}`;
+        const imageData2 = fs.readFileSync(relativePath2);
+        const dataURI2 = `data:image/png;base64,${imageData2.toString('base64')}`;
+        // Use context object to access values for now
+        const context = {
+            fileUrl: dataURI,
+            fileUrl2: dataURI2,
+            shortTitle: data[0].shortTitle,
+            SKU: data[0].SKU,
+            name: data[0].name,
+        };
         // Only way it currently works is with the handlebar inside this file
         const template = `<!DOCTYPE html>
     <html>
@@ -54,7 +66,8 @@ function generatePdf(data) {
     }
     
     .product-image {
-        width: 500px;
+        width: 100px;
+        height: 100px;
         
     }
     
@@ -83,18 +96,12 @@ function generatePdf(data) {
         <div class="product-details">
         <div>SKU : {{SKU}}</div>
         <div>{{name}}</div>
+        <img class="product-image" src="{{fileUrl2}}" alt="{{shortTitle}}" />
     </div>
     </div>
     </body>
     </html>`;
         const compiledTemplate = Handlebars.compile(template);
-        // Use context object to access values for now
-        const context = {
-            fileUrl: fileUrl,
-            shortTitle: data[0].shortTitle,
-            SKU: data[0].SKU,
-            name: data[0].name,
-        };
         const html = compiledTemplate(context);
         // Launch Browser and create page.
         const browser = yield puppeteer.launch();
@@ -103,7 +110,7 @@ function generatePdf(data) {
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/pcitrsjgdcue.pdf';
+        const pdfPath = 'pdf/workingnowW.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
         yield page.emulateMediaType('screen');
         yield page.waitForTimeout(1000);
