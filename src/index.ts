@@ -62,7 +62,7 @@ export async function generatePdf(data: Product[]) {
 
     
     const templateHeader = fs.readFileSync(path.join(__dirname, 'template-header.html'), 'utf-8')
-    const templateFooter = fs.readFileSync(path.join(__dirname, 'template-footer.html'), 'utf-8')
+    const templateFooter = fs.readFileSync(path.join(__dirname, 'template-footer.hbs'), 'utf-8')
 
 
   // #############################################################################
@@ -368,7 +368,7 @@ export async function generatePdf(data: Product[]) {
     });
 
     await page.setContent(html, { waitUntil: 'networkidle2' });
-    const pdfPath = 'pdf/withHeader.pdf';
+    const pdfPath = 'pdf/withFooter.pdf';
     await page.emulateMediaType('screen');
     await page.waitForTimeout(1000);
   
