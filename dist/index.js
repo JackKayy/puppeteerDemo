@@ -14,13 +14,20 @@ const puppeteer = require('puppeteer');
 const Handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
-const relativePath = path.join('src', 'assets', 'UI.png');
+const relativePath = path.join('src', 'assets', 'UILOGO.png');
 const relativePath2 = path.join('src', 'assets', 'TSImg.png');
 const productData = [
     {
         shortTitle: 'Dream Router',
         SKU: 9310203,
         name: 'UDR',
+        dimensions: '207 x 223.7 x 341.3 mm (8.15 x 8.81 x 13.44")',
+        weight: 'Without mount: 3.8kg With mount: 6.8kg',
+        enclosure: 'metal and plastic',
+        sensor: 'Sony 4K 8 MP 1 1.8 CMOS sensor',
+        lens: '22x Optical zoom',
+        video: 'H.264',
+        res: '4K2K 3840 x 2160'
     }
 ];
 function generatePdf(data) {
@@ -36,6 +43,13 @@ function generatePdf(data) {
             shortTitle: data[0].shortTitle,
             SKU: data[0].SKU,
             name: data[0].name,
+            dimensions: data[0].dimensions,
+            weight: data[0].weight,
+            enclosure: data[0].enclosure,
+            sensor: data[0].sensor,
+            lens: data[0].lens,
+            video: data[0].video,
+            res: data[0].res
         };
         // Only way it currently works is with the handlebar inside this file
         const template = `<!DOCTYPE html>
@@ -63,12 +77,19 @@ function generatePdf(data) {
         flex-direction: column;
         align-items: center;
         margin-top: 55px;
+        height: 100vh; // I Guess only way to create seperate pages
     }
     
     .product-image {
-        width: 100px;
-        height: 100px;
+        width: 118px;
+        height: 118px;
         
+    }
+
+    .tech-image {
+       max-width: 500px;
+        height: auto;
+        margin-top: 77px;
     }
     
     .product-details {
@@ -76,13 +97,44 @@ function generatePdf(data) {
         font-size: 12px;
         font-weight: 400;
         color: #BEBEBE;
+        margin-top: 16px;
+        text-align: center;
     }
     
     .short-title {
+        margin-top: 15px;
         font-family: 'Lato';
         font-size: 32px;
         font-weight: 700;
         color: #393A3F;
+    }
+
+    .row {
+        padding: 6px 0px;
+        border-top: 1px solid #4A4A4A;
+        border-bottom: 1px solid #4A4A4A;
+    }
+
+    tr {
+        padding: 6px 0px;
+        border-top: 1px solid #4A4A4A;
+        border-bottom: 1px solid #4A4A4A;
+    }
+
+    .datasheet {
+        padding: 40px;
+    }
+
+    .data {
+        min-width: 100%;
+    }
+
+    .property {
+        text-align: left;
+    }
+
+    .value {
+        text-align: right;
     }
 
    
@@ -96,9 +148,44 @@ function generatePdf(data) {
         <div class="product-details">
         <div>SKU : {{SKU}}</div>
         <div>{{name}}</div>
-        <img class="product-image" src="{{fileUrl2}}" alt="{{shortTitle}}" />
+        </div>
+        <img class="tech-image" src="{{fileUrl2}}" alt="{{shortTitle}}" />
     </div>
+    <div class="datasheet">
+    <table class="data">
+        <tbody>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Enclosure</td>
+            <td class="value">{{enclosure}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Sensor</td>
+            <td class="value">{{sensor}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Lens</td>
+            <td class="value">{{lens}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Video</td>
+            <td class="value">{{video}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Resolution</td>
+            <td class="value">{{res}}</td>
+            </tr>
+        </tbody>
+    </table>
     </div>
+    
     </body>
     </html>`;
         const compiledTemplate = Handlebars.compile(template);
@@ -110,7 +197,7 @@ function generatePdf(data) {
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/workingnowW.pdf';
+        const pdfPath = 'pdf/b.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
         yield page.emulateMediaType('screen');
         yield page.waitForTimeout(1000);
