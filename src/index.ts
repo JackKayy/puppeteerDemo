@@ -345,6 +345,26 @@ export async function generatePdf(data: Product[]) {
             <td class="property">Weight</td>
             <td class="value">{{weight}}</td>
             </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
         </tbody>
     </table>
     </div>
@@ -363,9 +383,6 @@ export async function generatePdf(data: Product[]) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.addStyleTag({
-        content: "@page:first {margin-top: 0;} body {margin-top: 1cm;}"
-    });
 
     await page.setContent(html, { waitUntil: 'networkidle2' });
     const pdfPath = 'pdf/withFooter.pdf';
