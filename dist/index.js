@@ -16,6 +16,7 @@ const fs = require('fs');
 const path = require('path');
 const relativePath = path.join('src', 'assets', 'UILOGO.png');
 const relativePath2 = path.join('src', 'assets', 'TSImg.png');
+const header = require('./hv/template-header.html');
 const productData = [
     {
         shortTitle: 'Dream Router',
@@ -40,6 +41,7 @@ function generatePdf(data) {
         const context = {
             fileUrl: dataURI,
             fileUrl2: dataURI2,
+            header: header,
             shortTitle: data[0].shortTitle,
             SKU: data[0].SKU,
             name: data[0].name,
@@ -51,7 +53,11 @@ function generatePdf(data) {
             video: data[0].video,
             res: data[0].res
         };
-        // Only way it currently works is with the handlebar inside this file
+        const templateHeader = fs.readFileSync('header', 'utf-8');
+        const templateFooter = fs.readFileSync('template-footer.html', 'utf-8');
+        // #############################################################################
+        // PDF DOCUMENT STYLING
+        // #############################################################################
         const template = `<!DOCTYPE html>
     <html>
     <head>
@@ -334,27 +340,26 @@ function generatePdf(data) {
     
     </body>
     </html>`;
+        // #############################################################################
+        // CREATE PAGE TEMPLATE USING PUPPETEER
+        // https://pptr.dev/ || https://github.com/puppeteer/puppeteer
+        // #############################################################################
         const compiledTemplate = Handlebars.compile(template);
         const html = compiledTemplate(context);
-        // Launch Browser and create page.
         const browser = yield puppeteer.launch();
         const page = yield browser.newPage();
-        /*
-        Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
-         */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/TableFormat.pdf';
-        // emulateMediaTypes changes the CSS media type of the page.
+        const pdfPath = 'pdf/sku1.pdf';
         yield page.emulateMediaType('screen');
         yield page.waitForTimeout(1000);
         yield page.pdf({
             path: pdfPath,
             format: 'A4',
             displayHeaderFooter: true,
-            // If graphical elements are still missing, turning printBackground to true may help.
+            headerTemplate: templateHeader,
+            footerTemplate: templateFooter,
             printBackground: true,
         });
-        // Close Browser
         yield browser.close();
     });
 }
