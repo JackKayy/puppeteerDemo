@@ -110,7 +110,7 @@ function generatePdf(data) {
     }
 
     .datasheet {
-        padding: 40px;
+        padding: 0px 40px;
     }
 
     table {
@@ -126,7 +126,7 @@ function generatePdf(data) {
         font-style: normal;
         font-weight: 700;
         line-height: 11px;
-        padding: 10px 0px;  
+        padding: 20px 0px 10px;  
     }
 
     .row {
@@ -170,6 +170,8 @@ function generatePdf(data) {
         </div>
         <img class="tech-image" src="{{fileUrl2}}" alt="{{shortTitle}}" />
     </div>
+
+
     <div class="datasheet">
     <table class="data">
     <thead>
@@ -207,6 +209,126 @@ function generatePdf(data) {
             <td class="value">{{res}}</td>
             </tr>
         </tbody>
+        <thead>
+    <tr>
+    <th>Optics</th>
+    </tr>
+    </thead>
+        <tbody>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Enclosure</td>
+            <td class="value">{{enclosure}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Sensor</td>
+            <td class="value">{{sensor}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Lens</td>
+            <td class="value">{{lens}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Video</td>
+            <td class="value">{{video}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Resolution</td>
+            <td class="value">{{res}}</td>
+            </tr>
+        </tbody>
+        <thead>
+    <tr>
+    <th>Video</th>
+    </tr>
+    </thead>
+        <tbody>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Enclosure</td>
+            <td class="value">{{enclosure}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Sensor</td>
+            <td class="value">{{sensor}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Lens</td>
+            <td class="value">{{lens}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Video</td>
+            <td class="value">{{video}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Resolution</td>
+            <td class="value">{{res}}</td>
+            </tr>
+        </tbody>
+        <thead>
+    <tr>
+    <th>System</th>
+    </tr>
+    </thead>
+        <tbody>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Enclosure</td>
+            <td class="value">{{enclosure}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Sensor</td>
+            <td class="value">{{sensor}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Lens</td>
+            <td class="value">{{lens}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Video</td>
+            <td class="value">{{video}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Resolution</td>
+            <td class="value">{{res}}</td>
+            </tr>
+        </tbody>
+        <thead>
+    <tr>
+    <th>Software</th>
+    </tr>
+    </thead>
+        <tbody>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+        </tbody>
     </table>
     </div>
     
@@ -221,7 +343,7 @@ function generatePdf(data) {
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/da.pdf';
+        const pdfPath = 'pdf/TableFormat.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
         yield page.emulateMediaType('screen');
         yield page.waitForTimeout(1000);
