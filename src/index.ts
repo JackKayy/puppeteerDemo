@@ -326,10 +326,6 @@ export async function generatePdf(data: Product[]) {
             <td class="property">Video</td>
             <td class="value">{{video}}</td>
             </tr>
-            <tr class="row">
-            <td class="property">Resolution</td>
-            <td class="value">{{res}}</td>
-            </tr>
         </tbody>
         <thead>
     <tr>
@@ -345,32 +341,14 @@ export async function generatePdf(data: Product[]) {
             <td class="property">Weight</td>
             <td class="value">{{weight}}</td>
             </tr>
-            <tr class="row">
-            <td class="property">Weight</td>
-            <td class="value">{{weight}}</td>
-            </tr>
-            <tr class="row">
-            <td class="property">Weight</td>
-            <td class="value">{{weight}}</td>
-            </tr>
-            <tr class="row">
-            <td class="property">Weight</td>
-            <td class="value">{{weight}}</td>
-            </tr>
-            <tr class="row">
-            <td class="property">Weight</td>
-            <td class="value">{{weight}}</td>
-            </tr>
-            <tr class="row">
-            <td class="property">Weight</td>
-            <td class="value">{{weight}}</td>
-            </tr>
         </tbody>
     </table>
     </div>
     
     </body>
     </html>`;
+
+    let x = Math.floor((Math.random() * 1000) + 1);
 
   // #############################################################################
   // CREATE PAGE TEMPLATE USING PUPPETEER
@@ -385,7 +363,7 @@ export async function generatePdf(data: Product[]) {
 
 
     await page.setContent(html, { waitUntil: 'networkidle2' });
-    const pdfPath = 'pdf/withFooter.pdf';
+    const pdfPath = `pdf/z${x}.pdf`;
     await page.emulateMediaType('screen');
     await page.waitForTimeout(1000);
   
