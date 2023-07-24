@@ -109,32 +109,51 @@ function generatePdf(data) {
         color: #393A3F;
     }
 
-    .row {
-        padding: 6px 0px;
-        border-top: 1px solid #4A4A4A;
-        border-bottom: 1px solid #4A4A4A;
-    }
-
-    tr {
-        padding: 6px 0px;
-        border-top: 1px solid #4A4A4A;
-        border-bottom: 1px solid #4A4A4A;
-    }
-
     .datasheet {
         padding: 40px;
     }
 
-    .data {
-        min-width: 100%;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+        color: #4A4A4A;
+        font-family: Lato;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 11px;
+        padding: 10px 0px;  
+    }
+
+    .row {
+        border-bottom: 1px solid #E5E7ED;
+        border-top: 1px solid #E5E7ED;
     }
 
     .property {
+        font-family: 'Lato';
         text-align: left;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        color: #4A4A4A;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 12px;
     }
 
     .value {
-        text-align: right;
+        font-family: 'Lato';
+        margin-left: 192px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        color: #56585A;
+        font-size: 8px;
+        font-weight: 400;
+        line-height: 12px;
     }
 
    
@@ -146,13 +165,18 @@ function generatePdf(data) {
     <img class="product-image" src="{{fileUrl}}" alt="{{shortTitle}}" />
         <div class="short-title">{{shortTitle}}</div>
         <div class="product-details">
-        <div>SKU : {{SKU}}</div>
+        <div>SKU: {{SKU}}</div>
         <div>{{name}}</div>
         </div>
         <img class="tech-image" src="{{fileUrl2}}" alt="{{shortTitle}}" />
     </div>
     <div class="datasheet">
     <table class="data">
+    <thead>
+    <tr>
+    <th>Mechanical</th>
+    </tr>
+    </thead>
         <tbody>
             <tr class="row">
             <td class="property">Dimensions</td>
@@ -197,7 +221,7 @@ function generatePdf(data) {
         Waits for all page properties to load, networkidle0 = navigation is finished when there are no more than 0 network connections for at least 500 ms.
          */
         yield page.setContent(html, { waitUntil: 'networkidle2' });
-        const pdfPath = 'pdf/b.pdf';
+        const pdfPath = 'pdf/da.pdf';
         // emulateMediaTypes changes the CSS media type of the page.
         yield page.emulateMediaType('screen');
         yield page.waitForTimeout(1000);
