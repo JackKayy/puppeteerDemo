@@ -16,7 +16,6 @@ const fs = require('fs');
 const path = require('path');
 const relativePath = path.join('src', 'assets', 'UILOGO.png');
 const relativePath2 = path.join('src', 'assets', 'TSImg.png');
-const header = require('./hv/template-header.html');
 const productData = [
     {
         shortTitle: 'Dream Router',
@@ -41,7 +40,6 @@ function generatePdf(data) {
         const context = {
             fileUrl: dataURI,
             fileUrl2: dataURI2,
-            header: header,
             shortTitle: data[0].shortTitle,
             SKU: data[0].SKU,
             name: data[0].name,
@@ -53,8 +51,8 @@ function generatePdf(data) {
             video: data[0].video,
             res: data[0].res
         };
-        const templateHeader = fs.readFileSync('header', 'utf-8');
-        const templateFooter = fs.readFileSync('template-footer.html', 'utf-8');
+        const templateHeader = fs.readFileSync(path.join(__dirname, 'template-header.html'), 'utf-8');
+        const templateFooter = fs.readFileSync(path.join(__dirname, 'template-footer.html'), 'utf-8');
         // #############################################################################
         // PDF DOCUMENT STYLING
         // #############################################################################

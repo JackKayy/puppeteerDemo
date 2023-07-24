@@ -61,8 +61,8 @@ export async function generatePdf(data: Product[]) {
     };
 
     
-    /* const templateHeader = fs.readFileSync('template-header.html', 'utf-8')
-    const templateFooter = fs.readFileSync('template-footer.html', 'utf-8') */
+    const templateHeader = fs.readFileSync(path.join(__dirname, 'template-header.html'), 'utf-8')
+    const templateFooter = fs.readFileSync(path.join(__dirname, 'template-footer.html'), 'utf-8')
 
 
   // #############################################################################
@@ -363,8 +363,12 @@ export async function generatePdf(data: Product[]) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
+    await page.addStyleTag({
+        content: "@page:first {margin-top: 0;} body {margin-top: 1cm;}"
+    });
+
     await page.setContent(html, { waitUntil: 'networkidle2' });
-    const pdfPath = 'pdf/sku1.pdf';
+    const pdfPath = 'pdf/withHeader.pdf';
     await page.emulateMediaType('screen');
     await page.waitForTimeout(1000);
   
@@ -372,8 +376,8 @@ export async function generatePdf(data: Product[]) {
       path: pdfPath,
       format: 'A4',
       displayHeaderFooter: true,
-     /*  headerTemplate: templateHeader,
-      footerTemplate: templateFooter, */
+      headerTemplate: templateHeader,
+      footerTemplate: templateFooter,
       printBackground: true,
     });
     await browser.close();
