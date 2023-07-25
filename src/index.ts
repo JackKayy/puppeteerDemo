@@ -61,7 +61,7 @@ export async function generatePdf(data: Product[]) {
     };
 
     
-    const templateHeader = fs.readFileSync(path.join(__dirname, 'template-header.html'), 'utf-8')
+    const templateHeader = fs.readFileSync(path.join(__dirname, 'template-header.hbs'), 'utf-8')
     const templateFooter = fs.readFileSync(path.join(__dirname, 'template-footer.hbs'), 'utf-8')
 
 
@@ -93,7 +93,6 @@ export async function generatePdf(data: Product[]) {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 55px;
         height: 100vh; // I Guess only way to create seperate pages
     }
     
@@ -341,6 +340,38 @@ export async function generatePdf(data: Product[]) {
             <td class="property">Weight</td>
             <td class="value">{{weight}}</td>
             </tr>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Dimensions</td>
+            <td class="value">{{dimensions}}</td>
+            </tr>
+            <tr class="row">
+            <td class="property">Weight</td>
+            <td class="value">{{weight}}</td>
+            </tr>
         </tbody>
     </table>
     </div>
@@ -361,7 +392,6 @@ export async function generatePdf(data: Product[]) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-
     await page.setContent(html, { waitUntil: 'networkidle2' });
     const pdfPath = `pdf/z${x}.pdf`;
     await page.emulateMediaType('screen');
@@ -373,6 +403,12 @@ export async function generatePdf(data: Product[]) {
       displayHeaderFooter: true,
       headerTemplate: templateHeader,
       footerTemplate: templateFooter,
+      margin: {
+        top: '70px',
+        bottom: '100px',
+        right: '0px',
+        left: '0px',
+      },
       printBackground: true,
     });
     await browser.close();
