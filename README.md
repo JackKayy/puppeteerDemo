@@ -9,7 +9,14 @@ npx ts-node ./src/index.ts
 
 ## To-Do
 - [x] Create Designed PDF - Jack
-- [] Manage Multi page count / footer & header display - Jack
+- [] Manage Multi page count / ~footer & header display~ - Jack
 - [] Hook up datasheet and product values
 - [] Make template files live in specific folder and manually copied on build
 - [] Add ability to show up to 3 different tech spec images on page 1
+
+## Docs
+Puppeteer & Handlebar quicklinks :smile:
+* https://pptr.dev/ 
+* https://github.com/puppeteer/puppeteer
+* https://devdocs.io/puppeteer/ 
+* https://handlebarsjs.com/guide/
